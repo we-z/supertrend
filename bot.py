@@ -19,6 +19,7 @@ def check_positions(symbol):
             return float(p.qty)
     return 0
 
+
 # Supertrend Indicator Bot Function
 def supertrend_bot(bar):
     try:
@@ -31,6 +32,7 @@ def supertrend_bot(bar):
         position = check_positions(symbol=symbol)
         should_buy = bar['c'] > dataframe["SUPERT_7_3.0"][-1]
         should_sell = bar['c'] < dataframe["SUPERT_7_3.0"][-1]
+        
         print(f"Price: {bar['c']}")
         print("Super Trend Indicator: {}".format(dataframe["SUPERT_7_3.0"][-1]))
         print(f"Position: {position} | Should Buy: {should_buy}")
@@ -51,15 +53,14 @@ def supertrend_bot(bar):
     except Exception as e:
         print (e)
 
+
 # Create handler for receiving live bar data
 async def on_crypto_bar(bar):
     print(bar)
     supertrend_bot(bar)
 
 # Create instance of Alpaca data streaming API
-print(12)
 alpaca_stream = tradeapi.Stream(API_KEY, SECRET_KEY, raw_data=True, crypto_exchanges=['CBSE'])
-
 
 # Subscribe to data and assign handler
 alpaca_stream.subscribe_crypto_bars(on_crypto_bar, symbol)
