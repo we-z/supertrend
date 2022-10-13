@@ -45,7 +45,7 @@ def supertrend_bot(bar):
 
         # Check if Long Position and Sell Signal is True
         elif position > 0 and should_sell == True:
-            api.submit_order(symbol, qty=qty_per_trade, side='sell', time_in_force='gtc')
+            api.close_position(symbol)
             message = f'Symbol: {symbol} | Side: Sell | Quantity: {qty_per_trade}'
             print(message)
         print("-"*20)
